@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fastask - Organize suas tarefas</title>
+    <link rel="icon" href="src/images/fastask-icon.png">
+    <link rel="stylesheet" href="src/styles/vars.css">
+    <link rel="stylesheet" href="src/styles/styles.css">
+    <link rel="stylesheet" href="src/styles/media-queries.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body class="fastask-vars">
+    <header>
+        <div class="header-content">
+            <div class="fastask-logo">
+                <img src="src/images/fastask-logo.png" alt="fastask-logo.png">
+            </div>
+            <div class="header-icons">
+                <div class="dark-mode">
+                    <img src="src/images/night-mode.png" alt="night-mode.png">
+                </div>
+                <div class="bell-notifications">
+                    <img src="src/images/bell.png" alt="bell-notifications.png">
+                </div>
+                <div class="perfil-image">
+                    <img src="src/images/Fotinha.jpg" alt="perfil-image.jpg">
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="main-column-content">
+            <div class="main-column-title tasks">
+                <h3>Tarefas</h3>
+            </div>
+            <div class="tasks">
+                <div class="task selected">
+                    <div class="task-name">
+                        <h4>Hoje</h4>
+                    </div>
+                    <div class="task-number">
+                        <h5>5</h5>
+                    </div>
+                </div>
+                <div class="task">
+                    <div class="task-name">
+                        <h4>Próximos 7 dias</h4>
+                    </div>
+                    <div class="task-number">
+                        <h5>8</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="main-column-title lists">
+                <h3>Listas</h3>
+            </div>
+            <div class="lists">
+                <div class="task">
+                    <div class="list-name">
+                        <h4>Casa</h4>
+                    </div>
+                    <div class="list-number">
+                        <h5>1</h5>
+                    </div>
+                </div>
+                <div class="task">
+                    <div class="task-name">
+                        <h4>Trabalho</h4>
+                    </div>
+                    <div class="task-number">
+                        <h5>5</h5>
+                    </div>
+                </div>
+                <div class="task">
+                    <div class="task-name">
+                        <h4>Mercado</h4>
+                    </div>
+                    <div class="task-number">
+                        <h5>4</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="separator-bar"></div>
+            <div class="completed-trash">
+                <div class="task">
+                    <div class="task-name">
+                        <h4>Completas</h4>
+                    </div>
+                    <div class="task-number">
+                        <h5>10</h5>
+                    </div>
+                </div>
+                <div class="task">
+                    <div class="task-name">
+                        <h4>Lixeira</h4>
+                    </div>
+                    <div class="task-number">
+                        <h5>3</h5>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="main-content">
+            <div class="main-title">
+                <h1>Hoje</h1>
+            </div>
+            <div class="main-input">
+                <button type="submit" id="new-task-button">
+                    <img src="src/images/adicionar.png" alt="adicionar-tarefa.png" id="new-task-image">
+                </button>
+                <input type="text" name="new-task" placeholder="Crie uma nova tarefa" id="new-task-input">
+            </div>
+            <div class="main-tasks-content" id="main-tasks-content">
+                <div class="task-hover main-task">
+                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Comprar mortadela</h2>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="src/javascript/script.js"></script>
+</body>
+</html>
