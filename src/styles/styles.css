@@ -48,6 +48,9 @@ header{
 .main-task-selected{
     background-color: var(--main-task-selected) !important;
 }
+.in-edit{
+    background-color: rgb(118, 205, 240) !important;
+}
 main{
     width: 100vw;
     display: flex;
@@ -105,6 +108,7 @@ main{
                 padding: 10px;
                 border-radius: 5px;
                 cursor: pointer;
+                overflow: hidden;
     
                 &:hover{
                     background-color: var(--main-task-selected);
@@ -131,8 +135,27 @@ main{
         & .main-column-title{
             padding: 15px 0 5px 0;
             width: 90%;
+
+            & .title-plus{
+                width: 95%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                & i{
+                    cursor: pointer;
+                    font-size: 19px;
+                    color: var(--font-color);
+                    transition: all 0.2s ease-out;
+
+                    &:hover{
+                        color: var(--item-selected);
+                    }
+                }
+            }
         }
-        & .tasks, & .lists, & .completed-trash{
+        & #tasks, & .lists, & .completed-trash{
             width: 90%;
         }
         & h3{
@@ -150,10 +173,19 @@ main{
             & h4{
                 margin-left: 8px;
                 font-size: 13px;
+                width: 80%;
+                overflow: hidden;
+
+                &:focus{
+                    outline: none;
+                }
             }
             & h5{
                 margin-right: 8px;
                 font-size: 13px;
+            }
+            &:hover{
+                background-color: var(--main-task-selected);
             }
         }
         & .separator-bar{
