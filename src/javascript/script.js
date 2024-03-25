@@ -1,5 +1,4 @@
 //#region 
-
 function ColumnTasksRemoveHover(){
     const tasks = document.querySelectorAll('.task');
 
@@ -15,11 +14,20 @@ function ColumnTasksHover(){
 
     tasks.forEach(el => {
         el.addEventListener('click', (evt) => {
-            const itemSelected = document.querySelector('.selected');
             const target = evt.target;
     
-            itemSelected.classList.remove('selected');
-            target.classList.add('selected');
+            if (target.tagName == "H4" || target.tagName == "H5")
+            {
+                console.log("primeiro if");
+                const targetParent = target.parentElement.parentElement;
+                ColumnTasksRemoveHover();
+                targetParent.classList.add('selected');
+            }
+            else
+            {
+                ColumnTasksRemoveHover();
+                target.classList.add('selected');
+            }
         });
     });
 }
@@ -36,8 +44,17 @@ function MainTasksHover()
         const target = evt.target;
         if (!target.classList.contains("selected"))
         {
-            MainTasksRemoveHover();
-            target.classList.add('selected');
+            if (target.tagName == "H2" || target.tagName == "INPUT")
+            {
+                const targetParent = target.parentElement;
+                MainTasksRemoveHover();
+                targetParent.classList.add('selected');
+            }
+            else
+            {
+                MainTasksRemoveHover();
+                target.classList.add('selected');
+            }
         }
         });
     });
@@ -67,6 +84,10 @@ newTaskButton.addEventListener("mouseleave", (evt) =>{
     newTaskImage.setAttribute("src", "src/images/adicionar.png");
 });
 newTaskButton.addEventListener("click", (evt) =>{
+    newMainTask();
+});
+
+function newMainTask(){
     const newTaskInput = document.querySelector("#new-task-input");
     const tasksContent = document.querySelector("#main-tasks-content");
 
@@ -105,7 +126,7 @@ newTaskButton.addEventListener("click", (evt) =>{
     {
         newTaskImage.setAttribute("src", "src/images/adicionar-click-red.png");
     }
-});
+}
 //#endregion
 
 //#region
@@ -129,7 +150,6 @@ function newTask(){
     newTask.classList.add("in-edit");
 
     const taskName = document.createElement("h4");
-    taskName.innerHTML = "Nova tarefa";
     taskName.setAttribute("contenteditable", "true");
     taskName.setAttribute("maxlegth", "10");
     
@@ -163,9 +183,38 @@ function newTask(){
     }
     
     function onKeyDownHandler(event) {
-        if (event.keyCode === 13) { // Verifica se a tecla pressionada é Enter
-            onBlurHandler(); // Chama a mesma lógica do evento blur
+        if (event.keyCode === 13) {
+            onBlurHandler();
         }
+    }
+
+    const height = parseInt(window.getComputedStyle(tasksContainer).height);
+    if (height >= 150){
+        tasksContainer.style.height = "160px";
     }
 }
 //#endregion
+
+//#region
+const mainInput = document.querySelector("#new-task-input");
+function verificaInput(){
+        mainInput.addEventListener("keydown", () => {
+        if (event.key === "Enter")
+        {
+            if (mainInput.value === ""){
+                mainInput.style.animation = "alert 0.3s alternate";
+            }
+            else
+            {
+                newMainTask();
+            }
+        }
+    });
+}
+const meuInput = document.getElementById("meu-input");
+
+mainInput.addEventListener("input", function(event) {
+    mainInput.style.animation = "";
+});
+
+verificaInput()
