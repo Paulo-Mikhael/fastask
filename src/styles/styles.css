@@ -5,6 +5,18 @@
     padding: 0;
     color: var(--font-color);
 }
+.hidden{
+    display: none !important;
+}
+.selected{
+    background-color: var(--item-selected) !important;
+}
+.main-task-selected{
+    background-color: var(--main-task-selected) !important;
+}
+.in-edit{
+    background-color: rgb(118, 205, 240) !important;
+}
 header{
     width: 100vw;
     height: 60px;
@@ -41,15 +53,6 @@ header{
             }
         }
     }
-}
-.selected{
-    background-color: var(--item-selected) !important;
-}
-.main-task-selected{
-    background-color: var(--main-task-selected) !important;
-}
-.in-edit{
-    background-color: rgb(118, 205, 240) !important;
 }
 main{
     width: 100vw;
@@ -160,7 +163,7 @@ main{
                 }
             }
         }
-        & #tasks, & .lists, & .completed-trash{
+        & #tasks, & #lists, & .completed-trash{
             width: 90%;
             overflow-y: scroll;
 

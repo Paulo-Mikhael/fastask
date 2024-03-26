@@ -39,69 +39,44 @@
                 </div>
             </div>
             <div id="tasks">
-                <div class="task selected">
-                    <div class="task-name">
-                        <h4>Hoje</h4>
-                    </div>
-                    <div class="task-number">
-                        <h5>0</h5>
-                    </div>
+                <div class="task selected" id="task-1">
+                    <h4>Hoje</h4>
+                    <h5>0</h5>
                 </div>
-                <div class="task">
-                    <div class="task-name">
-                        <h4>Próximos 7 dias</h4>
-                    </div>
-                    <div class="task-number">
-                        <h5>0</h5>
-                    </div>
+                <div class="task" id="task-2">
+                    <h4>Próximos 7 dias</h4>
+                    <h5>0</h5>
                 </div>
             </div>
-            <div class="main-column-title lists">
-                <h3>Listas</h3>
+            <div class="main-column-title">
+                <div class="title-plus">
+                    <h3>Listas</h3>
+                    <i class="fa-solid fa-plus" id="new-list-plus"></i>
+                </div>
             </div>
-            <div class="lists">
-                <div class="task">
-                    <div class="list-name">
-                        <h4>Casa</h4>
-                    </div>
-                    <div class="list-number">
-                        <h5>0</h5>
-                    </div>
+            <div id="lists">
+                <div class="task" id="list-1">
+                    <h4>Casa</h4>
+                    <h5>0</h5>
                 </div>
-                <div class="task">
-                    <div class="task-name">
-                        <h4>Trabalho</h4>
-                    </div>
-                    <div class="task-number">
-                        <h5>0</h5>
-                    </div>
+                <div class="task" id="list-2">
+                    <h4>Trabalho</h4>
+                    <h5>0</h5>
                 </div>
-                <div class="task">
-                    <div class="task-name">
-                        <h4>Mercado</h4>
-                    </div>
-                    <div class="task-number">
-                        <h5>0</h5>
-                    </div>
+                <div class="task" id="list-3">
+                    <h4>Mercado</h4>
+                    <h5>0</h5>
                 </div>
             </div>
             <div class="separator-bar"></div>
             <div class="completed-trash">
-                <div class="task">
-                    <div class="task-name">
-                        <h4>Completas</h4>
-                    </div>
-                    <div class="task-number">
-                        <h5>0</h5>
-                    </div>
+                <div class="task" id="completed">
+                    <h4>Completas</h4>
+                    <h5>0</h5>
                 </div>
-                <div class="task">
-                    <div class="task-name">
-                        <h4>Lixeira</h4>
-                    </div>
-                    <div class="task-number">
-                        <h5>0</h5>
-                    </div>
+                <div class="task" id="trash">
+                    <h4>Lixeira</h4>
+                    <h5>0</h5>
                 </div>
             </div>
         </section>
@@ -115,9 +90,39 @@
                 </button>
                 <input type="text" name="new-task" placeholder="Crie uma nova tarefa" id="new-task-input">
             </div>
-            <div class="main-tasks-content" id="main-tasks-content">
+            <div class="main-tasks-content task-1">
                 <div class="main-task">
-                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Comprar mortadela</h2>
+                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Hoje</h2>
+                </div>
+            </div>
+            <div class="main-tasks-content task-2 hidden">
+                <div class="main-task">
+                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">7 dias</h2>
+                </div>
+            </div>
+            <div class="main-tasks-content list-1 hidden">
+                <div class="main-task">
+                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Comprar pão</h2>
+                </div>
+            </div>
+            <div class="main-tasks-content list-2 hidden">
+                <div class="main-task">
+                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Comprar pão</h2>
+                </div>
+            </div>
+            <div class="main-tasks-content list-3 hidden">
+                <div class="main-task">
+                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Comprar pão</h2>
+                </div>
+            </div>
+            <div class="main-tasks-content trash hidden">
+                <div class="main-task">
+                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Lixeira</h2>
+                </div>
+            </div>
+            <div class="main-tasks-content completed hidden">
+                <div class="main-task">
+                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Completas</h2>
                 </div>
             </div>
         </section>

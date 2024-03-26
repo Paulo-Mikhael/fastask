@@ -16,17 +16,25 @@ function ColumnTasksHover(){
         el.addEventListener('click', (evt) => {
             const target = evt.target;
     
-            if (target.tagName == "H4" || target.tagName == "H5")
+            if (target.id !== "tasks")
             {
-                console.log("primeiro if");
-                const targetParent = target.parentElement.parentElement;
-                ColumnTasksRemoveHover();
-                targetParent.classList.add('selected');
-            }
-            else
-            {
-                ColumnTasksRemoveHover();
-                target.classList.add('selected');
+                hiddenMainTasksContent();
+
+                if (target.tagName == "H4" || target.tagName == "H5")
+                {
+                    const targetParent = target.parentElement;
+                    const targetParentTaskContainer = document.querySelector(".main-tasks-content." + targetParent.id);
+                    ColumnTasksRemoveHover();
+                    targetParent.classList.add('selected');
+                    targetParentTaskContainer.classList.remove("hidden");
+                }
+                else
+                {
+                    const targetTaskContainer = document.querySelector(".main-tasks-content." + target.id);
+                    ColumnTasksRemoveHover();
+                    target.classList.add('selected');
+                    targetTaskContainer.classList.remove("hidden");
+                }
             }
         });
     });
@@ -84,12 +92,15 @@ newTaskButton.addEventListener("mouseleave", (evt) =>{
     newTaskImage.setAttribute("src", "src/images/adicionar.png");
 });
 newTaskButton.addEventListener("click", (evt) =>{
-    newMainTask();
+    const taskSelected = document.querySelector(".task.selected");
+
+    newMainTask(taskSelected.id);
 });
 
-function newMainTask(){
+function newMainTask(taskId){
     const newTaskInput = document.querySelector("#new-task-input");
-    const tasksContent = document.querySelector("#main-tasks-content");
+
+    const tasksContent = document.querySelector(".main-tasks-content." + taskId);
 
     if (newTaskInput.value != "")
     {
@@ -135,19 +146,47 @@ newTaskPlus.addEventListener("click", (evt) =>{
     const tasksContainer = document.querySelector("#tasks");
     
     if (tasksContainer.children.length <= 0){
-        newTask();
+        newTask(document.querySelector("#tasks"));
     }else if (!tasksContainer.firstElementChild.classList.contains("in-edit")){
-        newTask();
+        newTask(document.querySelector("#tasks"));
     }
     console.log(tasksContainer.firstElementChild);
 });
 
-function newTask(){
-    const tasksContainer = document.querySelector("#tasks");
+const newListPlus = document.querySelector("#new-list-plus");
+newListPlus.addEventListener("click", (evt) =>{
+    const listContainer = document.querySelector("#lists");
+    
+    if (listContainer.children.length <= 0){
+        newTask(document.querySelector("#lists"));
+    }else if (!listContainer.firstElementChild.classList.contains("in-edit")){
+        newTask(document.querySelector("#lists"));
+    }
+    console.log(listContainer.firstElementChild);
+});
+//#endregion
+
+//#region 
+let nextTaskId = 3;
+let nextListId = 4;
+
+function newTask(el){
+    const tasksContainer = el;
 
     const newTask = document.createElement("div");
     newTask.classList.add("task");
     newTask.classList.add("in-edit");
+
+    if (el.id == "tasks")
+    {
+        newTask.id = "task-" + nextTaskId;
+        nextTaskId += 1;
+    }
+    else if (el.id == "lists")
+    {
+        newTask.id = "list-" + nextListId;
+        nextListId += 1;
+    }
 
     const taskName = document.createElement("h4");
     taskName.setAttribute("contenteditable", "true");
@@ -173,16 +212,42 @@ function newTask(){
     taskName.addEventListener("blur", onBlurHandler);
     taskName.addEventListener("keydown", onKeyDownHandler);
     
-    function onBlurHandler(event) {
+    function onBlurHandler(event) 
+    {
         if (taskName.innerHTML === "") {
             taskName.innerHTML = "Nova Tarefa";
         }
         newTask.classList.remove("in-edit");
         taskName.setAttribute("contenteditable", "false");
         newTask.classList.add("selected");
+
+        hiddenMainTasksContent();
+
+        const sectionContent = document.querySelector(".main-content");
+    
+        const newMainContent = document.createElement("div");
+        newMainContent.classList.add("main-tasks-content");
+        newMainContent.classList.add(newTask.id);
+    
+        const taskContainer = document.createElement("div");
+        taskContainer.classList.add("main-task");
+    
+        const taskCheckbox = document.createElement("input");
+        taskCheckbox.classList.add("task-checkbox");
+        taskCheckbox.setAttribute("type", "checkbox");
+    
+        const textTask = document.createElement("h2");
+        textTask.innerHTML = "Tarefa de exemplo";
+
+        taskContainer.appendChild(taskCheckbox);
+        taskContainer.appendChild(textTask);
+        newMainContent.appendChild(taskContainer);
+    
+        sectionContent.appendChild(newMainContent);
     }
     
-    function onKeyDownHandler(event) {
+    function onKeyDownHandler(event) 
+    {
         if (event.keyCode === 13) {
             onBlurHandler();
         }
@@ -206,15 +271,26 @@ function verificaInput(){
             }
             else
             {
-                newMainTask();
+                const taskSelected = document.querySelector(".task.selected");
+
+                newMainTask(taskSelected.id);
             }
         }
     });
 }
-const meuInput = document.getElementById("meu-input");
-
 mainInput.addEventListener("input", function(event) {
     mainInput.style.animation = "";
 });
 
 verificaInput()
+//#endregion
+
+//#region 
+function hiddenMainTasksContent()
+{
+    const mainTasksContent = document.querySelectorAll(".main-tasks-content");
+    
+    mainTasksContent.forEach(el => {
+        el.classList.add("hidden");
+    });
+}
