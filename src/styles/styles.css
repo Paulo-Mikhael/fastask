@@ -112,23 +112,45 @@ main{
                 display: flex;
                 align-items: center;
                 padding: 10px;
-                border-radius: 5px;
                 cursor: pointer;
                 overflow: hidden;
+                justify-content: space-between;
+                border-top: 1px solid var(--font-color);
     
+                &:nth-last-child(1){
+                    border-bottom: 1px solid var(--font-color);
+                }
+                & i{
+                    color: #868686;
+                    display: none;
+                }
                 &:hover{
                     background-color: var(--main-task-selected);
+
+                    & i{
+                        display: block;
+                    }
                 }
-                & h2{
-                    overflow: hidden;
+                &.selected i{
+                    display: block;
+                }
+                & .task-title{
                     width: 95%;
-                    font-size: 14px;
-                }
-                & input{
-                    width: 18px;
-                    height: 18px;
-                    margin-right: 10px;
-                    cursor: pointer;
+                    height: 100%;
+                    display: flex;
+                    overflow: hidden;
+
+                    & h2{
+                        overflow: hidden;
+                        width: 95%;
+                        font-size: 14px;
+                    }
+                    & input{
+                        width: 18px;
+                        height: 18px;
+                        margin-right: 10px;
+                        cursor: pointer;
+                    }
                 }
             }
         }
@@ -178,14 +200,18 @@ main{
             font-size: 16px;
         }
         .task{
-            width: 100%;
+            width: 98%;
             height: 35px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-radius: 7px;
             cursor: pointer;
+            margin-top: 2px;
 
+            &:nth-child(1){
+                margin: 0;
+            }
             & h4{
                 margin-left: 8px;
                 font-size: 13px;

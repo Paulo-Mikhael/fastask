@@ -41,11 +41,11 @@
             <div id="tasks">
                 <div class="task selected" id="task-1">
                     <h4>Hoje</h4>
-                    <h5>0</h5>
+                    <h5>4</h5>
                 </div>
                 <div class="task" id="task-2">
                     <h4>Próximos 7 dias</h4>
-                    <h5>0</h5>
+                    <h5>1</h5>
                 </div>
             </div>
             <div class="main-column-title">
@@ -57,15 +57,15 @@
             <div id="lists">
                 <div class="task" id="list-1">
                     <h4>Casa</h4>
-                    <h5>0</h5>
+                    <h5>2</h5>
                 </div>
                 <div class="task" id="list-2">
                     <h4>Trabalho</h4>
-                    <h5>0</h5>
+                    <h5>3</h5>
                 </div>
                 <div class="task" id="list-3">
                     <h4>Mercado</h4>
-                    <h5>0</h5>
+                    <h5>3</h5>
                 </div>
             </div>
             <div class="separator-bar"></div>
@@ -88,42 +88,36 @@
                 <button type="submit" id="new-task-button">
                     <img src="src/images/adicionar.png" alt="adicionar-tarefa.png" id="new-task-image">
                 </button>
-                <input type="text" name="new-task" placeholder="Crie uma nova tarefa" id="new-task-input">
+                <input maxlength="135" type="text" name="new-task" placeholder="Crie uma nova tarefa..." id="new-task-input">
             </div>
             <div class="main-tasks-content task-1">
-                <div class="main-task">
-                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Hoje</h2>
-                </div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Comprar frutas</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Comprar pão</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Ir na escola</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Fazer uma nova lista / Atualiza-las</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
             </div>
             <div class="main-tasks-content task-2 hidden">
-                <div class="main-task">
-                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">7 dias</h2>
-                </div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Estudar</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
             </div>
             <div class="main-tasks-content list-1 hidden">
-                <div class="main-task">
-                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Comprar pão</h2>
-                </div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Arrumar a sala de estar</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Mover os móveis para o banheiro</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
             </div>
             <div class="main-tasks-content list-2 hidden">
-                <div class="main-task">
-                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Comprar pão</h2>
-                </div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Headphone</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Cabo USB</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Cabo HDMI</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
             </div>
             <div class="main-tasks-content list-3 hidden">
-                <div class="main-task">
-                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Comprar pão</h2>
-                </div>
-            </div>
-            <div class="main-tasks-content trash hidden">
-                <div class="main-task">
-                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Lixeira</h2>
-                </div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Detergente</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Sabão</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
+                <div class="main-task"><div class="task-title"><input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Esponja</h2></div><i class="fa-solid fa-pencil"></i><i class="fa-solid fa-trash"></i></div>
             </div>
             <div class="main-tasks-content completed hidden">
-                <div class="main-task">
-                    <input type="checkbox" name="task-checkbox" class="task-checkbox"><h2 class="task-hover">Completas</h2>
-                </div>
+                <!--Completas-->
+            </div>
+            <div class="main-tasks-content trash hidden">
+                <!--Lixeira-->
             </div>
         </section>
     </main>

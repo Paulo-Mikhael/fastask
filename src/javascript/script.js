@@ -20,20 +20,31 @@ function ColumnTasksHover(){
             {
                 hiddenMainTasksContent();
 
+                const mainTitle = document.querySelector(".main-title > h1");
+
                 if (target.tagName == "H4" || target.tagName == "H5")
                 {
                     const targetParent = target.parentElement;
+                    const divParentH4 = document.querySelector("#" + targetParent.id + " > h4");
                     const targetParentTaskContainer = document.querySelector(".main-tasks-content." + targetParent.id);
+
                     ColumnTasksRemoveHover();
+
                     targetParent.classList.add('selected');
                     targetParentTaskContainer.classList.remove("hidden");
+
+                    mainTitle.innerHTML = divParentH4.innerHTML;
                 }
                 else
                 {
+                    const divParentH4 = document.querySelector("#" + target.id + " > h4");
                     const targetTaskContainer = document.querySelector(".main-tasks-content." + target.id);
+
                     ColumnTasksRemoveHover();
+
                     target.classList.add('selected');
                     targetTaskContainer.classList.remove("hidden");
+                    mainTitle.innerHTML = divParentH4.innerHTML;
                 }
             }
         });
@@ -52,11 +63,21 @@ function MainTasksHover()
         const target = evt.target;
         if (!target.classList.contains("selected"))
         {
-            if (target.tagName == "H2" || target.tagName == "INPUT")
+            if (target.tagName == "H2" || target.tagName == "INPUT" || target.tagName == "I" || target.classList.contains("task-title"))
             {
-                const targetParent = target.parentElement;
-                MainTasksRemoveHover();
-                targetParent.classList.add('selected');
+                if (target.tagName == "I" || target.classList.contains("task-title"))
+                {
+                    targetParent = target.parentElement;
+                    MainTasksRemoveHover();
+                    targetParent.classList.add('selected');
+                }
+                else
+                {
+                    const targetParent = target.parentElement.parentElement;
+                    MainTasksRemoveHover();
+                    targetParent.classList.add('selected');
+                }
+
             }
             else
             {
@@ -119,9 +140,24 @@ function newMainTask(taskId){
     
         const newTaskText = document.createElement("h2");
         newTaskText.innerHTML = task;
+
+        const mainTaskContainer = document.createElement("div");
+        mainTaskContainer.classList.add("task-title");
+
+        const taskTrash = document.createElement("i");
+        taskTrash.classList.add("fa-solid");
+        taskTrash.classList.add("fa-trash");
+        
+        const taskPencil = document.createElement("i");
+        taskPencil.classList.add("fa-solid");
+        taskPencil.classList.add("fa-pencil");
     
-        newTask.appendChild(newCheckBox);
-        newTask.appendChild(newTaskText);
+        mainTaskContainer.appendChild(newCheckBox);
+        mainTaskContainer.appendChild(newTaskText);
+
+        newTask.appendChild(mainTaskContainer);
+        newTask.appendChild(taskPencil);
+        newTask.appendChild(taskTrash);
     
         tasksContent.appendChild(newTask);
         
@@ -181,11 +217,13 @@ function newTask(el){
     {
         newTask.id = "task-" + nextTaskId;
         nextTaskId += 1;
+        mainTitle.innerHTML = "Nova Tarefa...";
     }
     else if (el.id == "lists")
     {
         newTask.id = "list-" + nextListId;
         nextListId += 1;
+        mainTitle.innerHTML = "Nova Lista...";
     }
 
     const taskName = document.createElement("h4");
@@ -209,41 +247,28 @@ function newTask(el){
 
     taskName.focus();
 
-    taskName.addEventListener("blur", onBlurHandler);
     taskName.addEventListener("keydown", onKeyDownHandler);
+    taskName.addEventListener("blur", onBlurHandler);
+    taskName.addEventListener("input", () =>{
+        mainTitle.innerHTML = taskName.innerHTML;
+    });
     
     function onBlurHandler(event) 
     {
         if (taskName.innerHTML === "") {
-            taskName.innerHTML = "Nova Tarefa";
+            if (el.id == "tasks")
+            {
+                taskName.innerHTML = "Nova Tarefa";
+            }
+            else if (el.id == "lists")
+            {
+                taskName.innerHTML = "Nova Lista";
+            }
         }
+        mainTitle.innerHTML = taskName.innerHTML;
         newTask.classList.remove("in-edit");
         taskName.setAttribute("contenteditable", "false");
         newTask.classList.add("selected");
-
-        hiddenMainTasksContent();
-
-        const sectionContent = document.querySelector(".main-content");
-    
-        const newMainContent = document.createElement("div");
-        newMainContent.classList.add("main-tasks-content");
-        newMainContent.classList.add(newTask.id);
-    
-        const taskContainer = document.createElement("div");
-        taskContainer.classList.add("main-task");
-    
-        const taskCheckbox = document.createElement("input");
-        taskCheckbox.classList.add("task-checkbox");
-        taskCheckbox.setAttribute("type", "checkbox");
-    
-        const textTask = document.createElement("h2");
-        textTask.innerHTML = "Tarefa de exemplo";
-
-        taskContainer.appendChild(taskCheckbox);
-        taskContainer.appendChild(textTask);
-        newMainContent.appendChild(taskContainer);
-    
-        sectionContent.appendChild(newMainContent);
     }
     
     function onKeyDownHandler(event) 
@@ -253,6 +278,16 @@ function newTask(el){
         }
     }
 
+    hiddenMainTasksContent();
+
+    const sectionContent = document.querySelector(".main-content");
+
+    const newMainContent = document.createElement("div");
+    newMainContent.classList.add("main-tasks-content");
+    newMainContent.classList.add(newTask.id);
+
+    sectionContent.appendChild(newMainContent);
+
     const height = parseInt(window.getComputedStyle(tasksContainer).height);
     if (height >= 150){
         tasksContainer.style.height = "160px";
@@ -261,6 +296,7 @@ function newTask(el){
 //#endregion
 
 //#region
+const mainTitle = document.querySelector(".main-title > h1");
 const mainInput = document.querySelector("#new-task-input");
 function verificaInput(){
         mainInput.addEventListener("keydown", () => {
