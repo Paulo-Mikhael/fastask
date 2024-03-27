@@ -61,30 +61,26 @@ function MainTasksHover()
     mainTasks.forEach(el => {
     el.addEventListener('click', (evt) => {
         const target = evt.target;
-        if (!target.classList.contains("selected"))
-        {
-            if (target.tagName == "H2" || target.tagName == "INPUT" || target.tagName == "I" || target.classList.contains("task-title"))
+            if (!target.classList.contains("selected"))
             {
-                if (target.tagName == "I" || target.classList.contains("task-title"))
-                {
-                    targetParent = target.parentElement;
-                    MainTasksRemoveHover();
-                    targetParent.classList.add('selected');
-                }
-                else
+                if (target.parentElement.classList.contains("task-title"))
                 {
                     const targetParent = target.parentElement.parentElement;
                     MainTasksRemoveHover();
                     targetParent.classList.add('selected');
                 }
-
+                else if (target.tagName == "I" || target.classList.contains("task-title") || target.tagName == "P")
+                {
+                    const targetParent = target.parentElement;
+                    MainTasksRemoveHover();
+                    targetParent.classList.add('selected');
+                }
+                else
+                {
+                    MainTasksRemoveHover();
+                    target.classList.add('selected');
+                }
             }
-            else
-            {
-                MainTasksRemoveHover();
-                target.classList.add('selected');
-            }
-        }
         });
     });
 }
@@ -151,9 +147,18 @@ function newMainTask(taskId){
         const taskPencil = document.createElement("i");
         taskPencil.classList.add("fa-solid");
         taskPencil.classList.add("fa-pencil");
+
+        const taskDate = document.createElement("p");
+        var dataAtual = new Date();
+        var ano = dataAtual.getFullYear();
+        var mes = dataAtual.getMonth() + 1;
+        var dia = dataAtual.getDate();
+        var dataFormatada = (dia < 10 ? '0' : '') + dia + "/" + (mes < 10 ? '0' : '') + mes + "/" + ano;
+        taskDate.innerHTML = dataFormatada;
     
         mainTaskContainer.appendChild(newCheckBox);
         mainTaskContainer.appendChild(newTaskText);
+        mainTaskContainer.appendChild(taskDate);
 
         newTask.appendChild(mainTaskContainer);
         newTask.appendChild(taskPencil);
@@ -165,6 +170,9 @@ function newMainTask(taskId){
             tasksContent.insertBefore(newTask, tasksContent.firstChild);
         }
 
+        const taskSelectedNumber = document.querySelector(".task.selected > h5");
+        taskSelectedNumber.innerHTML = tasksContent.children.length;
+
         MainTasksRemoveHover();
         MainTasksHover();
         newTask.classList.add("selected");
@@ -173,6 +181,10 @@ function newMainTask(taskId){
     {
         newTaskImage.setAttribute("src", "src/images/adicionar-click-red.png");
     }
+
+    completedTasks();
+    RemoverMainTasks();
+    RenomearMainTask();
 }
 //#endregion
 
@@ -249,7 +261,7 @@ function newTask(el){
 
     taskName.addEventListener("keydown", onKeyDownHandler);
     taskName.addEventListener("blur", onBlurHandler);
-    taskName.addEventListener("input", () =>{
+    taskName.addEventListener("input", () => {
         mainTitle.innerHTML = taskName.innerHTML;
     });
     
@@ -330,3 +342,121 @@ function hiddenMainTasksContent()
         el.classList.add("hidden");
     });
 }
+//#endregion
+
+//#region
+function RenomearMainTask(){
+    const faPencil = document.querySelectorAll(".fa-pencil");
+
+    faPencil.forEach(el => {
+        el.addEventListener("click", () => {
+            const closestContainer = el.closest(".main-task");
+            const text = closestContainer.firstChild.children[1];
+
+            const initialText = text.innerHTML;
+
+            text.setAttribute("contenteditable", "true");
+            closestContainer.classList.add("in-edit");
+            text.focus();
+
+            text.addEventListener("blur", textBlur);
+            text.addEventListener("keypress", textEnter);
+
+            function textBlur() 
+            {
+                if (text.innerHTML == "")
+                {
+                    text.innerHTML = initialText;
+                }
+
+                text.setAttribute("contenteditable", "false");
+                closestContainer.classList.remove("in-edit");
+            }
+
+            function textEnter(event) 
+            {
+                if (event.keyCode === 13) {
+                    textBlur();
+                }
+            }
+        });
+    });
+}
+RenomearMainTask();
+
+function RemoverMainTasks()
+{
+    const faTrash = document.querySelectorAll(".fa-trash");
+    faTrash.forEach(el => {
+        el.addEventListener("click", () => {
+            const taskSelectedNumber = document.querySelector(".task.selected > h5");
+            const mainTaskContainer = el.parentElement.parentElement;
+            const faTrashParent = el.parentElement;
+            const trashContainer = document.querySelector(".main-tasks-content.trash");
+            const trashNumber = document.querySelector(".completed-trash > #trash > h5");
+
+            faTrashParent.removeChild(el);
+            const faPencil = faTrashParent.lastChild;
+            console.log(faPencil); 
+            faTrashParent.removeChild(faPencil);
+
+            const taskName = document.createElement("p");
+            taskName.classList.add("trashP");
+            taskName.innerHTML = mainTitle.innerHTML;
+
+            mainTaskContainer.removeChild(faTrashParent);
+            faTrashParent.appendChild(taskName);
+            trashContainer.appendChild(faTrashParent);
+
+            taskSelectedNumber.innerHTML = mainTaskContainer.children.length;
+            trashNumber.innerHTML = trashContainer.children.length;
+        });
+    });
+}
+RemoverMainTasks();
+//#endregion
+
+//#region 
+let nextCopyId = 1;
+function completedTasks()
+{
+    const checkbox = document.querySelectorAll(".task-checkbox");
+    checkbox.forEach(el => {
+        el.addEventListener('change', function() {
+            const mainTaskContainer = el.parentElement.parentElement;
+            const completedContainer = document.querySelector(".main-tasks-content.completed");
+            const completedNumber = document.querySelector(".completed-trash > #completed > h5");
+            const mainTaskCopy = mainTaskContainer.cloneNode(true);
+            
+            if (el.checked)
+            {
+                mainTaskContainer.setAttribute("id", nextCopyId);
+                mainTaskCopy.setAttribute("id", "copy-id-" + nextCopyId);
+                nextCopyId++;
+                completedContainer.appendChild(mainTaskCopy);
+                completedNumber.innerHTML = completedContainer.children.length;
+            }
+            else
+            {
+                const deleteCopy = document.querySelector(".main-tasks-content.completed > #copy-id-" + mainTaskContainer.id);
+
+                completedContainer.removeChild(deleteCopy);
+                completedNumber.innerHTML = completedContainer.children.length;
+            }
+        });
+    });
+}
+completedTasks();
+//#endregion
+
+//#region 
+const allP = document.querySelectorAll("p");
+var dataAtual = new Date();
+var ano = dataAtual.getFullYear();
+var mes = dataAtual.getMonth() + 1;
+var dia = dataAtual.getDate();
+var dataFormatada = (dia < 10 ? '0' : '') + dia + "/" + (mes < 10 ? '0' : '') + mes + "/" + ano;
+allP.forEach(el => {
+    el.innerHTML = dataFormatada;
+});
+//#endregion
