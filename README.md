@@ -43,7 +43,6 @@
   - [Landing Page para um e-commerce de eletrônicos](https://github.com/Paulo-Mikhael/phlox?tab=readme-ov-file#readme)
   - [Landing Page para um e-commerce de plantas](https://github.com/Paulo-Mikhael/casa-verde?tab=readme-ov-file#readme)
   - [Landing Page para uma academia](https://github.com/Paulo-Mikhael/academia-landing-page?tab=readme-ov-file#readme)
-  - [Fastask - Gerenciador de Tarefas](https://github.com/Paulo-Mikhael/fastask?tab=readme-ov-file#readme)
   - [XWriter - Poste seus momentos](https://github.com/Paulo-Mikhael/XWriter?tab=readme-ov-file#readme)
   - [[Clone] Pagina da Unity](https://github.com/Paulo-Mikhael/pagina-unity-2024?tab=readme-ov-file#readme)
 
