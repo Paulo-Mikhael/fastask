@@ -15,7 +15,7 @@
     background-color: var(--main-task-selected) !important;
 }
 .in-edit{
-    background-color: rgb(118, 205, 240) !important;
+    background-color: #76cdf0 !important;
 
     & i.fa-pencil{
         color: var(--fa-pencil) !important;
